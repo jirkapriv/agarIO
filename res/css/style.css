@@ -3,10 +3,49 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
+  font-family: "Courier New", Courier, monospace;
 }
 
 #canvas1 {
   background: url("../img/bc.png") repeat;
   display: block;
   margin: 0 auto;
+}
+
+#title {
+  text-align: center;
+  font-size: xxx-large;
+  line-height: 2em;
+  font-weight: 600;
+  letter-spacing: 6px;
+}
+
+#contain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 500px;
+}
+
+#nameInp {
+  margin: 1em;
+  padding: 0.5em;
+  font-weight: 800;
+}
+
+#play {
+  padding: 0.7em 1.2em;
+  border-radius: 25px;
+  font-size: x-large;
+  margin-top: 1.5em;
+  cursor: pointer;
+  font-weight: 800;
+  transition: 500ms;
+}
+
+#play:hover {
+
+background-color: rgb(154, 148, 148);
+
 }
