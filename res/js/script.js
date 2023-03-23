@@ -13,7 +13,8 @@ let resize = () => {
   canvas.width = window.innerWidth + 2000;
   canvas.height = window.innerHeight + 2000;
 };
-
+let translateX = -1000;
+let translateY = -1000;
 resize();
 let circleX = canvas.width / 2;
 let circleY = canvas.height / 2;
@@ -28,6 +29,8 @@ function draw() {
     const zpomalovac = speed / distance;
     circleX += delkaX * zpomalovac;
     circleY += delkaY * zpomalovac;
+    translateX -= delkaX * zpomalovac;
+    translateY -= delkaY * zpomalovac;
   } else {
     circleX = cX;
     circleY = cY;
@@ -40,6 +43,8 @@ function draw() {
   ctx.lineWidth = borderThickness;
   ctx.fill();
   ctx.stroke();
+
+  canvas.style.transform = `translate(${translateX}px, ${translateY}px)`;
 
   requestAnimationFrame(draw);
 }
