@@ -5,21 +5,42 @@ let radius = 50;
 let speed = 1;
 
 let hue = Math.random() * 360;
+let hue2 = Math.random() * 360;
 let colorCircle = "hsl(" + hue + ",100%,50%)";
+let colorCircle2 = "hsl(" + hue2 + ",100%,50%)";
 let borderColorCircle = "hsl(" + hue + ",100%,30%)";
+let borderColorCircle2 = "hsl(" + hue2 + ",100%,30%)";
 let borderThickness = 5;
+let borderThickness2 = 2;
+
+let radiusR = 10;
+let jidlo = 100;
+
+
 
 let resize = () => {
   canvas.width = window.innerWidth + 2000;
   canvas.height = window.innerHeight + 2000;
 };
+
 let translateX = -1000;
 let translateY = -1000;
+
 resize();
+
 let circleX = canvas.width / 2;
 let circleY = canvas.height / 2;
 let cX = circleX;
 let cY = circleY;
+
+let circles = [];
+
+for (let i = 0; i < jidlo; i++) {
+  let rX = Math.floor(Math.random() * canvas.width);
+  let rY = Math.floor(Math.random() * canvas.height);
+  circles.push([rX, rY]);
+}
+
 
 function draw() {
   const delkaX = cX - circleX;
@@ -36,6 +57,21 @@ function draw() {
     circleY = cY;
   }
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // vykreslit array
+  for (let i = 0; i < circles.length; i++) {
+    let rX = circles[i][0];
+    let rY = circles[i][1];
+    ctx.beginPath();
+    ctx.arc(rX, rY, radiusR, 0, Math.PI * 2);
+    ctx.fillStyle = colorCircle2;
+    ctx.strokeStyle = borderColorCircle2;
+    ctx.lineWidth = borderThickness2;
+    ctx.fill();
+    ctx.stroke();
+  }
+
+  // hrac
   ctx.beginPath();
   ctx.arc(circleX, circleY, radius, 0, Math.PI * 2);
   ctx.fillStyle = colorCircle;
