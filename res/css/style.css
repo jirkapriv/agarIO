@@ -7,7 +7,7 @@
 }
 
 #canvas1 {
-  background: url("../img/bc.png") repeat;
+  background: url("../img/ctverec.png") repeat;
   display: block;
   margin: 0 auto;
   position: absolute;
@@ -23,6 +23,8 @@
   line-height: 2em;
   font-weight: 600;
   letter-spacing: 6px;
+  color: white;
+  transform: scale(1.5);
 }
 
 #contain {
@@ -30,13 +32,16 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 500px;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.60)),url("../img/ctverec.png") repeat;
 }
 
 #nameInp {
   margin: 1em;
   padding: 0.5em;
   font-weight: 800;
+  border: dotted red 2px;
 }
 
 #play {
@@ -46,11 +51,7 @@
   margin-top: 1.5em;
   cursor: pointer;
   font-weight: 800;
-  transition: 500ms;
+
+  border: dotted red 2px;
 }
 
-#play:hover {
-
-background-color: rgb(154, 148, 148);
-
-}
