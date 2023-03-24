@@ -14,9 +14,7 @@ let borderThickness = 5;
 let borderThickness2 = 2;
 
 let radiusR = 10;
-let jidlo = 100;
-
-
+let jidlo = 200;
 
 let resize = () => {
   canvas.width = window.innerWidth + 2000;
@@ -40,7 +38,6 @@ for (let i = 0; i < jidlo; i++) {
   let rY = Math.floor(Math.random() * canvas.height);
   circles.push([rX, rY]);
 }
-
 
 function draw() {
   const delkaX = cX - circleX;
@@ -69,6 +66,15 @@ function draw() {
     ctx.lineWidth = borderThickness2;
     ctx.fill();
     ctx.stroke();
+
+    const distance = Math.sqrt((rX - circleX) ** 2 + (rY - circleY) ** 2);
+    if (distance < radius + radiusR) {
+      circles.splice(i, 1);
+      console.log("odebrano");
+      let rX = Math.floor(Math.random() * canvas.width);
+      let rY = Math.floor(Math.random() * canvas.height);
+      circles.push([rX, rY]);
+    }
   }
 
   // hrac
