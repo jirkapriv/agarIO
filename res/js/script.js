@@ -74,6 +74,8 @@ function draw() {
       let rX = Math.floor(Math.random() * canvas.width);
       let rY = Math.floor(Math.random() * canvas.height);
       circles.push([rX, rY]);
+      radius += Math.sqrt(radiusR / Math.PI  )/2;
+
     }
   }
 
