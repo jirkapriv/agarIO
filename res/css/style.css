@@ -14,8 +14,10 @@
   top: 0;
   left: 0;
   z-index: -1;
-
+  border: solid red 3px;
 }
+
+/* Title screen */
 
 #title {
   text-align: center;
@@ -34,7 +36,8 @@
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.60)),url("../img/ctverec.png") repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("../img/ctverec.png") repeat;
 }
 
 #nameInp {
@@ -55,3 +58,40 @@
   border: dotted red 2px;
 }
 
+/* Title screen */
+
+/*Death message*/
+
+#ctn {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+#popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000000000;
+  border: solid black 3px;
+  width: 40%;
+  height: 40%;
+  background-color: white;
+
+  font-size: 2rem;
+}
+
+#ok {
+  padding: 0.75em;
+  border-radius: 20px;
+  margin: 0.5em;
+  font-size: 0.5em;
+}
+#popup > p {
+  margin: 0.25em;
+}
+
+/*Death message*/

@@ -1,6 +1,7 @@
 const canvas = document.getElementById("canvas1");
-const ctx = canvas.getContext("2d");
 
+const ctx = canvas.getContext("2d");
+const boxik = document.getElementById("ctn");
 let radius = 50;
 let speed = 1;
 
@@ -45,10 +46,23 @@ function draw() {
   const distance = Math.sqrt(delkaX ** 2 + delkaY ** 2);
   if (distance > speed) {
     const zpomalovac = speed / distance;
-    circleX += delkaX * zpomalovac;
-    circleY += delkaY * zpomalovac;
-    translateX -= delkaX * zpomalovac;
-    translateY -= delkaY * zpomalovac;
+
+    let proBorderX = circleX + radius + borderThickness;
+    let proBorderY = circleY + radius + borderThickness;
+
+    if (
+      proBorderX < canvas.width &&
+      proBorderY < canvas.height &&
+      circleX - borderThickness - radius > 0 &&
+      circleY - borderThickness - radius > 0
+    ) {
+      circleX += delkaX * zpomalovac;
+      circleY += delkaY * zpomalovac;
+      translateX -= delkaX * zpomalovac;
+      translateY -= delkaY * zpomalovac;
+    } else {
+      boxik.style.display = "flex";
+    }
   } else {
     circleX = cX;
     circleY = cY;
@@ -74,8 +88,7 @@ function draw() {
       let rX = Math.floor(Math.random() * canvas.width);
       let rY = Math.floor(Math.random() * canvas.height);
       circles.push([rX, rY]);
-      radius += Math.sqrt(radiusR / Math.PI  )/2;
-
+      radius += Math.sqrt(radiusR / Math.PI) / 2;
     }
   }
 
