@@ -1,9 +1,6 @@
 const canvas = document.getElementById("canvas1");
-
 const ctx = canvas.getContext("2d");
 const boxik = document.getElementById("ctn");
-let radius = 50;
-let speed = 1;
 
 let hue = Math.random() * 360;
 let hue2 = Math.random() * 360;
@@ -13,9 +10,10 @@ let borderColorCircle = "hsl(" + hue + ",100%,30%)";
 let borderColorCircle2 = "hsl(" + hue2 + ",100%,30%)";
 let borderThickness = 5;
 let borderThickness2 = 2;
-
 let radiusR = 10;
+let radius = 50;
 let jidlo = 200;
+let speed = 1;
 
 let resize = () => {
   canvas.width = window.innerWidth + 2000;
