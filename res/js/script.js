@@ -1,6 +1,8 @@
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d");
 const boxik = document.getElementById("ctn");
+const nahr = document.getElementById("nahr");
+const name = sessionStorage.getItem('name') || "jmeno23";
 
 let hue = Math.random() * 360;
 let hue2 = Math.random() * 360;
@@ -171,5 +173,7 @@ function start() {
 
   requestAnimationFrame(draw);
 }
+
+nahr.innerHTML = name;
 
 start();
