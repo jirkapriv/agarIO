@@ -18,10 +18,10 @@
 }
 
 body{
+/*
+  background: url("../img/rick.png") repeat;
+  */
 
-  /*background: url("../img/rick.png") repeat;
-  
-*/
 background: url("../img/smile.png") repeat;
 }
 

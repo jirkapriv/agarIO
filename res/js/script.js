@@ -51,7 +51,8 @@ for (let c = 0; c < numOfEnemies; c++) {
   let enemyX = Math.floor(Math.random() * canvas.width);
   let enemyY = Math.floor(Math.random() * canvas.height);
   let enemyRadius = Math.floor(Math.random() * 200);
-  enemies.push([enemyX, enemyY, enemyRadius]);
+  let enemyColor = Math.random() * 360;
+  enemies.push([enemyX, enemyY, enemyRadius, enemyColor]);
 }
 
 let pomucka = 0;
@@ -114,11 +115,14 @@ function draw() {
     let enemyX = enemies[i][0];
     let enemyY = enemies[i][1];
     let enemyRadius = enemies[i][2];
+    let enemyColor = enemies[i][3];
+    let enemyColorE = "hsl(" +  enemyColor + ",100%,60%)";
+    let enemyColorB = "hsl(" +  enemyColor + ",100%,30%)";
     ctx.beginPath();
     ctx.arc(enemyX, enemyY, enemyRadius, 0, Math.PI * 2);
-    ctx.fillStyle = colorCircle3;
-    ctx.strokeStyle = borderColorCircle3;
-    ctx.lineWidth = borderThickness2;
+    ctx.fillStyle = enemyColorE;
+    ctx.strokeStyle = enemyColorB;
+    ctx.lineWidth = 5;
     ctx.fill();
     ctx.stroke();
 
