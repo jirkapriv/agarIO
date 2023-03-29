@@ -3,6 +3,7 @@ const ctx = canvas.getContext("2d");
 const boxik = document.getElementById("ctn");
 const nahr = document.getElementById("nahr");
 const name = sessionStorage.getItem('name') || "jmeno23";
+const scorePlace = document.getElementById("scorePlace");
 
 let hue = Math.random() * 360;
 let hue2 = Math.random() * 360;
@@ -20,6 +21,7 @@ let radius = 40;
 let jidlo = 200;
 let numOfEnemies = 10;
 let speedOfMe = 1;
+let score = 0;
 
 let resize = () => {
   canvas.width = window.innerWidth + 2000;
@@ -99,6 +101,8 @@ function draw() {
     const distance = Math.sqrt((rX - circleX) ** 2 + (rY - circleY) ** 2);
     if (distance < radius + radiusR) {
       circles.splice(i, 1);
+      score+= 1;
+      scorePlace.innerHTML = `Score: ${score}`;
       console.log("odebrano");
       let rX = Math.floor(Math.random() * canvas.width);
       let rY = Math.floor(Math.random() * canvas.height);
@@ -127,6 +131,8 @@ function draw() {
     if (distance < radius + enemyRadius && radius > enemyRadius) {
       enemies.splice(i, 1);
       console.log("odebrano");
+      score += Math.floor(enemyRadius/10);
+      scorePlace.innerHTML = `Score: ${score}`;
       let enemyX = Math.floor(Math.random() * (canvas.width - enemyRadius - 1000) );
       let enemyY = Math.floor(Math.random() * (canvas.height - enemyRadius - 1000));
       enemies.push([enemyX, enemyY]);

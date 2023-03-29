@@ -118,3 +118,12 @@
 #jmeno > p {
   text-align: center;
 }
+#scorePlace{
+
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border: solid black 1px;
+  background-color: white;
+  padding: 0.5em;
+  }
