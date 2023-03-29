@@ -7,7 +7,7 @@
 }
 
 #canvas1 {
-  background: url("../img/ctverec.png") repeat;
+  background: url("../img/simpleBCross.png") repeat;
   display: block;
   margin: 0 auto;
   position: absolute;
@@ -15,6 +15,14 @@
   left: 0;
   z-index: -1;
   border: solid red 3px;
+}
+
+body{
+
+  /*background: url("../img/rick.png") repeat;
+  
+*/
+background: url("../img/smile.png") repeat;
 }
 
 /* Title screen */
@@ -119,11 +127,15 @@
   text-align: center;
 }
 #scorePlace{
-
   position: absolute;
   top: 0px;
   right: 0px;
-  border: solid black 1px;
-  background-color: white;
-  padding: 0.5em;
+  border: dashed black 1px;
+  border-radius: 25px 0 25px 25px;
+  background-color: transparent;
+  padding: .7em;
+  font-size: x-large;
+  font-weight: 900;
+  transform: scale(1.2);
+  letter-spacing: 2px;
   }

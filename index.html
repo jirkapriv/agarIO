@@ -21,7 +21,7 @@
         <button id="play" onclick="sendName()">Play</button>
       </a>
       <script>
-        function sendName() {
+        let sendName = () =>{
           const name = document.getElementById("nameInp").value;
           sessionStorage.setItem("name", name);
         }
