@@ -35,6 +35,7 @@ body {
   letter-spacing: 6px;
   color: white;
   transform: scale(1.5);
+  text-shadow: lime 1px 1px 10px;
 }
 
 #contain {
@@ -52,7 +53,8 @@ body {
   margin: 1em;
   padding: 0.5em;
   font-weight: 800;
-  border: dotted red 2px;
+  border: solid lime 2px;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 #play {
@@ -62,7 +64,8 @@ body {
   margin-top: 1.5em;
   cursor: pointer;
   font-weight: 800;
-  border: dotted red 2px;
+  border: solid lime 2px;
+  color: rgb(17, 84, 17);
 }
 
 /* Title screen */
@@ -83,20 +86,34 @@ body {
   align-items: center;
   flex-direction: column;
   z-index: 1000000000;
-  border: solid black 3px;
+  border: solid lime 3px;
   width: 40%;
   height: 40%;
-  background-color: white;
-
+  color: white;
+  background-image: linear-gradient(45deg, white, grey, rgb(67, 63, 63));
+  font-weight: 900;
   font-size: 2rem;
+  text-shadow: lime 1px 1px 10px;
 }
 
 #ok {
   padding: 0.75em;
-  border-radius: 20px;
+  border-radius: 5px;
   margin: 0.5em;
   font-size: 0.5em;
+  background-color: rgb(38, 184, 38);
+  color: white;
+  font-weight: 900;
+  cursor: pointer;
+  border: 0;
+  transition: 100ms;
+  border: solid white 1.5px;
 }
+
+#ok:hover {
+  transform: scale(1.1);
+}
+
 #popup > p {
   margin: 0.25em;
 }
@@ -126,16 +143,22 @@ body {
 #jmeno > p {
   text-align: center;
 }
+
+/* SCORE */
+
 #scorePlace {
   position: absolute;
   top: 0px;
   right: 0px;
-  border: dashed black 1px;
+  border: solid lime 3px;
   border-radius: 25px 0 25px 25px;
-  background-color: transparent;
+  background-color: white;
   padding: 0.7em;
   font-size: x-large;
   font-weight: 900;
   transform: scale(1.2);
   letter-spacing: 2px;
+  text-shadow: grey 1px 1px 10px;
 }
+
+/* SCORE */
