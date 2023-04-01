@@ -4,6 +4,8 @@ const boxik = document.getElementById("ctn");
 const nahr = document.getElementById("nahr");
 const name = sessionStorage.getItem("name") || "jmeno23";
 const scorePlace = document.getElementById("scorePlace");
+const death = document.getElementById("death");
+const pop = document.getElementById("pop");
 
 let hue = Math.random() * 360;
 let hue2 = Math.random() * 360;
@@ -19,6 +21,8 @@ let jidlo = 200;
 let numOfEnemies = 10;
 let speedOfMe = 1;
 let score = 0;
+let enemySpeed = 0.5;
+let dSoundPlayed = false;
 
 let resize = () => {
   canvas.width = window.innerWidth + 2000;
@@ -49,7 +53,7 @@ for (let c = 0; c < numOfEnemies; c++) {
   let enemyY = Math.floor(Math.random() * canvas.height);
   let enemyRadius = Math.floor(Math.random() * 200);
   let enemyColor = Math.random() * 360;
-  let directionIdentifier = Math.floor(Math.random() * 8 +1)
+  let directionIdentifier = Math.floor(Math.random() * 8 + 1);
   enemies.push([enemyX, enemyY, enemyRadius, enemyColor, directionIdentifier]);
 }
 
@@ -77,6 +81,11 @@ function draw() {
         translateY -= delkaY * zpomalovac;
       } else {
         boxik.style.display = "flex";
+
+        if (!dSoundPlayed) {
+          death.play();
+          dSoundPlayed = true;
+        }
       }
     } else {
       circleX = cX;
@@ -100,6 +109,7 @@ function draw() {
     const distance = Math.sqrt((rX - circleX) ** 2 + (rY - circleY) ** 2);
     if (distance < radius + radiusR) {
       circles.splice(i, 1);
+      pop.play();
       score += 1;
       scorePlace.innerHTML = `Score: ${score}`;
       console.log("odebrano");
@@ -118,63 +128,39 @@ function draw() {
     let enemyColorE = "hsl(" + enemyColor + ",100%,60%)";
     let enemyColorB = "hsl(" + enemyColor + ",100%,30%)";
 
-      if( directionIdentifier == 1 ){
+    if (directionIdentifier == 1) {
+      enemyX += 0.5;
+    }
+    if (directionIdentifier == 2) {
+      enemyX -= enemySpeed;
+    }
+    if (directionIdentifier == 3) {
+      enemyY += enemySpeed;
+    }
+    if (directionIdentifier == 4) {
+      enemyY -= enemySpeed;
+    }
+    if (directionIdentifier == 5) {
+      enemyX += enemySpeed;
+      enemyY -= enemySpeed;
+    }
+    if (directionIdentifier == 6) {
+      enemyX += enemySpeed;
+      enemyY += enemySpeed;
+    }
+    if (directionIdentifier == 7) {
+      enemyX -= enemySpeed;
+      enemyY += enemySpeed;
+    }
+    if (directionIdentifier == 8) {
+      enemyX -= enemySpeed;
+      enemyY -= enemySpeed;
+    }
+    if (directionIdentifier == 9) {
+      console.log("error");
+    }
 
-          enemyX++;
-
-      }
-      if( directionIdentifier == 2 ){
-
-          enemyX--;
-
-      }
-      if( directionIdentifier == 3 ){
-
-          enemyY++;
-
-      }
-      if( directionIdentifier == 4 ){
-
-          enemyY--;
-
-      }
-      if( directionIdentifier == 5 ){
-
-          enemyX++;
-          enemyY--;
-
-      }
-      if( directionIdentifier == 6 ){
-
-          enemyX++;
-          enemyY++;
-
-      }
-      if( directionIdentifier == 7 ){
-
-          enemyX--;
-          enemyY++;
-
-      }
-      if( directionIdentifier == 8 ){
-
-        enemyX--;
-        enemyY--;
-
-      }
-      if( directionIdentifier == 9 ){
-
-          console.log("error")
-
-      }
-
-
-     
-
-
-
-
-    enemies[i] = [enemyX, enemyY, enemyRadius, enemyColor,directionIdentifier];
+    enemies[i] = [enemyX, enemyY, enemyRadius, enemyColor, directionIdentifier];
 
     ctx.beginPath();
     ctx.arc(enemyX, enemyY, enemyRadius, 0, Math.PI * 2);
@@ -190,6 +176,7 @@ function draw() {
 
     if (distance < radius + enemyRadius && radius > enemyRadius) {
       enemies.splice(i, 1);
+      pop.play();
       console.log("odebrano");
       score += Math.floor(enemyRadius / 10);
       scorePlace.innerHTML = `Score: ${score}`;
@@ -197,11 +184,23 @@ function draw() {
       let enemyY = Math.floor(Math.random() * canvas.height);
       enemyRadius = Math.floor(Math.random() * 200);
       let enemyColor = Math.random() * 360;
-      let directionIdentifier = Math.floor(Math.random() * 8 +1)
-      enemies.push([enemyX, enemyY, enemyRadius, enemyColor, directionIdentifier]);
+      let directionIdentifier = Math.floor(Math.random() * 8 + 1);
+      enemies.push([
+        enemyX,
+        enemyY,
+        enemyRadius,
+        enemyColor,
+        directionIdentifier,
+      ]);
       radius += Math.sqrt(enemyRadius / Math.PI) / 2;
     } else if (distance < radius + enemyRadius && radius < enemyRadius) {
       boxik.style.display = "flex";
+
+      if (!dSoundPlayed) {
+        death.play();
+        dSoundPlayed = true;
+      }
+
       pomucka += 1;
     } else if (
       enemyX + enemyRadius > canvas.width ||
@@ -215,8 +214,14 @@ function draw() {
       let enemyY = Math.floor(Math.random() * canvas.height);
       enemyRadius = Math.floor(Math.random() * 200);
       let enemyColor = Math.random() * 360;
-      let directionIdentifier = Math.floor(Math.random() * 8 +1)
-      enemies.push([enemyX, enemyY, enemyRadius, enemyColor, directionIdentifier]);
+      let directionIdentifier = Math.floor(Math.random() * 8 + 1);
+      enemies.push([
+        enemyX,
+        enemyY,
+        enemyRadius,
+        enemyColor,
+        directionIdentifier,
+      ]);
     }
   }
 

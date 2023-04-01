@@ -17,12 +17,12 @@
   border: solid red 3px;
 }
 
-body{
-/*
+body {
+  /*
   background: url("../img/rick.png") repeat;
 */
 
-background: url("../img/smile.png") repeat;
+  background: url("../img/smile.png") repeat;
 }
 
 /* Title screen */
@@ -126,16 +126,16 @@ background: url("../img/smile.png") repeat;
 #jmeno > p {
   text-align: center;
 }
-#scorePlace{
+#scorePlace {
   position: absolute;
   top: 0px;
   right: 0px;
   border: dashed black 1px;
   border-radius: 25px 0 25px 25px;
   background-color: transparent;
-  padding: .7em;
+  padding: 0.7em;
   font-size: x-large;
   font-weight: 900;
   transform: scale(1.2);
   letter-spacing: 2px;
-  }
+}
