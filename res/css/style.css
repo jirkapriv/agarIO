@@ -20,7 +20,7 @@
 body{
 /*
   background: url("../img/rick.png") repeat;
-  */
+*/
 
 background: url("../img/smile.png") repeat;
 }
@@ -45,7 +45,7 @@ background: url("../img/smile.png") repeat;
   height: 100vh;
   width: 100%;
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url("../img/ctverec.png") repeat;
+    url("../img/simpleBCross.png") repeat;
 }
 
 #nameInp {
