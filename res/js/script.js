@@ -7,12 +7,12 @@ const scorePlace = document.getElementById("scorePlace");
 const death = document.getElementById("death");
 const pop = document.getElementById("pop");
 
-let hue = Math.random() * 360;
-let hue2 = Math.random() * 360;
-let colorCircle = "hsl(" + hue + ",100%,50%)";
-let colorCircle2 = "hsl(" + hue2 + ",100%,50%)";
-let borderColorCircle = "hsl(" + hue + ",100%,30%)";
-let borderColorCircle2 = "hsl(" + hue2 + ",100%,30%)";
+let hue = Math.random() * 360; //Random cislo 0 - 360
+let hue2 = Math.random() * 360; //Random cislo 0 - 360
+let colorCircle = "hsl(" + hue + ",100%,50%)"; //Random barva
+let colorCircle2 = "hsl(" + hue2 + ",100%,50%)"; //Random barva
+let borderColorCircle = "hsl(" + hue + ",100%,30%)"; //Random barva
+let borderColorCircle2 = "hsl(" + hue2 + ",100%,30%)"; //Random barva
 let borderThickness = 5;
 let borderThickness2 = 2;
 let radiusR = 10;
@@ -22,31 +22,35 @@ let numOfEnemies = 10;
 let speedOfMe = 1;
 let score = 0;
 let enemySpeed = 0.5;
-let dSoundPlayed = false;
+let dSoundPlayed = false; // Pomucka pro prehrati zvuku jen jednou
 
 let resize = () => {
-  canvas.width = window.innerWidth + 2000;
-  canvas.height = window.innerHeight + 2000;
+  canvas.width = window.innerWidth + 2000; // Nastavni velikosti mapy
+  canvas.height = window.innerHeight + 2000; // Nastavni velikosti mapy
 };
 
-let translateX = -1000;
-let translateY = -1000;
+let translateX = -1000; //predela visible plochu na stred X
+let translateY = -1000; //predela visible plochu na stred Y
 
 resize();
 
-let circleX = canvas.width / 2;
-let circleY = canvas.height / 2;
+let circleX = canvas.width / 2; // Nastaveni pozice hrace na stred
+let circleY = canvas.height / 2; // Nastaveni pozice hrace na stred
 let cX = circleX;
 let cY = circleY;
 
 let circles = [];
 let enemies = [];
 
+// Nastaveni random pozic pro jidlo do arraye na mape
+
 for (let i = 0; i < jidlo; i++) {
   let rX = Math.floor(Math.random() * canvas.width);
   let rY = Math.floor(Math.random() * canvas.height);
   circles.push([rX, rY]);
 }
+
+// Nastaveni random pozic pro enmaky do arraye, jejich velikosti, barvy, smeru jizdy
 
 for (let c = 0; c < numOfEnemies; c++) {
   let enemyX = Math.floor(Math.random() * canvas.width);
@@ -58,7 +62,9 @@ for (let c = 0; c < numOfEnemies; c++) {
 }
 
 let pomucka = 0;
-function draw() {
+//vykreslovani
+let draw = () => {
+  //zastaveni movementu kdyz hrac umre
   if (pomucka == 0) {
     const delkaX = cX - circleX;
     const delkaY = cY - circleY;
@@ -70,11 +76,13 @@ function draw() {
       let proBorderY = circleY + radius + borderThickness;
 
       if (
+        //hlida kolize
         proBorderX < canvas.width &&
         proBorderY < canvas.height &&
         circleX - borderThickness - radius > 0 &&
         circleY - borderThickness - radius > 0
       ) {
+        // upravuje popzici hrace a misto pro zobrazeni plochy na opacnou stranu
         circleX += delkaX * zpomalovac;
         circleY += delkaY * zpomalovac;
         translateX -= delkaX * zpomalovac;
@@ -91,10 +99,11 @@ function draw() {
       circleX = cX;
       circleY = cY;
     }
+    // maze canvas aby nezustavali stopy
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 
-  // vykreslit array
+  // vykreslit array s jidlem
   for (let i = 0; i < circles.length; i++) {
     let rX = circles[i][0];
     let rY = circles[i][1];
@@ -116,9 +125,11 @@ function draw() {
       let rX = Math.floor(Math.random() * canvas.width);
       let rY = Math.floor(Math.random() * canvas.height);
       circles.push([rX, rY]);
+      // zvetsi hrace
       radius += Math.sqrt(radiusR / Math.PI) / 2;
     }
   }
+  // vykreslit array s enemaky
   for (let i = 0; i < enemies.length; i++) {
     let enemyX = enemies[i][0];
     let enemyY = enemies[i][1];
@@ -128,6 +139,7 @@ function draw() {
     let enemyColorE = "hsl(" + enemyColor + ",100%,60%)";
     let enemyColorB = "hsl(" + enemyColor + ",100%,30%)";
 
+    // pohyb enemaku
     if (directionIdentifier == 1) {
       enemyX += 0.5;
     }
@@ -174,8 +186,11 @@ function draw() {
       (enemyX - circleX) ** 2 + (enemyY - circleY) ** 2
     );
 
+    // hlida kolize hracu
     if (distance < radius + enemyRadius && radius > enemyRadius) {
+      // odebere enemaka
       enemies.splice(i, 1);
+      //prehraje zvuk
       pop.play();
       console.log("odebrano");
       score += Math.floor(enemyRadius / 10);
@@ -202,7 +217,8 @@ function draw() {
       }
 
       pomucka += 1;
-    } else if (
+    } // hlida kolize mezi enemaky a borderem
+    else if (
       enemyX + enemyRadius > canvas.width ||
       enemyY + enemyRadius > canvas.height ||
       enemyX - borderThickness - enemyRadius < 0 ||
@@ -234,27 +250,31 @@ function draw() {
   ctx.fill();
   ctx.stroke();
 
+  // predelava hodnotu posunuti plochy, ktera je videt
   canvas.style.transform = `translate(${translateX}px, ${translateY}px)`;
 
+  // vola opakovane draw a animuje tim
   requestAnimationFrame(draw);
-}
+};
 
-function start() {
+let start = () => {
   resize();
   window.addEventListener("resize", () => {
     resize();
     draw();
   });
 
+  // bere soradnice mysi vzdy kdyz pohnes mysi na obrazovce
   window.addEventListener("mousemove", (event) => {
+    //korekce
     const canvasRect = canvas.getBoundingClientRect();
     cX = event.clientX - canvasRect.left;
     cY = event.clientY - canvasRect.top;
   });
 
   requestAnimationFrame(draw);
-}
-
+};
+// zobrazeni jmena
 nahr.innerHTML = name;
 
 start();
