@@ -18,7 +18,7 @@ let borderThickness2 = 2;
 let radiusR = 10;
 let radius = 40;
 let jidlo = 200;
-let numOfEnemies = 10;
+let numOfEnemies = 15;
 let speedOfMe = 1;
 let score = 0;
 let enemySpeed = 0.5;
@@ -52,10 +52,28 @@ for (let i = 0; i < jidlo; i++) {
 
 // Nastaveni random pozic pro enmaky do arraye, jejich velikosti, barvy, smeru jizdy
 
-for (let c = 0; c < numOfEnemies; c++) {
+for (let i = 0; i < numOfEnemies; i++) {
   let enemyX = Math.floor(Math.random() * canvas.width);
   let enemyY = Math.floor(Math.random() * canvas.height);
-  let enemyRadius = Math.floor(Math.random() * 200);
+  let enemyRadius = Math.floor(Math.random() * 210);
+
+  let overlaap = false;
+  for (let j = 0; j < enemies.length; j++) {
+    let secEnemy = enemies[j];
+    let ex = enemyX - secEnemy[0];
+    let ey = enemyY - secEnemy[1];
+    let min = secEnemy[2] + 200;
+    if (ex * ex + ey * ey < min * min) {
+      overlaap = true;
+      break;
+    }
+  }
+
+  if (overlaap) {
+    i--;
+    continue;
+  }
+
   let enemyColor = Math.random() * 360;
   let directionIdentifier = Math.floor(Math.random() * 8 + 1);
   enemies.push([enemyX, enemyY, enemyRadius, enemyColor, directionIdentifier]);
@@ -141,31 +159,31 @@ let draw = () => {
 
     // pohyb enemaku
     if (directionIdentifier == 1) {
-      enemyX += 0.5;
+      enemyX += enemySpeed;
     }
     if (directionIdentifier == 2) {
       enemyX -= enemySpeed;
     }
     if (directionIdentifier == 3) {
-      enemyY += enemySpeed;
+      enemyX -= enemySpeed;
+      enemyY -= enemySpeed;
     }
     if (directionIdentifier == 4) {
-      enemyY -= enemySpeed;
+      enemyX += enemySpeed;
+      enemyY += enemySpeed;
     }
     if (directionIdentifier == 5) {
-      enemyX += enemySpeed;
-      enemyY -= enemySpeed;
+      enemyX -= enemySpeed;
+      enemyY += enemySpeed;
     }
     if (directionIdentifier == 6) {
       enemyX += enemySpeed;
-      enemyY += enemySpeed;
+      enemyY -= enemySpeed;
     }
     if (directionIdentifier == 7) {
-      enemyX -= enemySpeed;
       enemyY += enemySpeed;
     }
     if (directionIdentifier == 8) {
-      enemyX -= enemySpeed;
       enemyY -= enemySpeed;
     }
     if (directionIdentifier == 9) {
@@ -186,6 +204,33 @@ let draw = () => {
       (enemyX - circleX) ** 2 + (enemyY - circleY) ** 2
     );
 
+    for (let i = 0; i < enemies.length; i++) {
+      for (let u = i + 1; u < enemies.length; u++) {
+        let xDistance = enemies[i][0] - enemies[u][0];
+        let yDistance = enemies[i][1] - enemies[u][1];
+        let distance = Math.sqrt(xDistance ** 2 + yDistance ** 2);
+
+        let rad = enemies[i][2] + enemies[u][2];
+
+        if (distance <= rad) {
+          let nwI = enemies[i][4];
+          let nwU = enemies[u][4];
+
+          if (nwI % 2 == 0) {
+            enemies[i][4] = enemies[i][4] - 1;
+          } else {
+            enemies[i][4] = enemies[i][4] + 1;
+          }
+
+          if (nwU % 2 == 0) {
+            enemies[u][4] = enemies[u][4] - 1;
+          } else {
+            enemies[u][4] = enemies[u][4] + 1;
+          }
+        }
+      }
+    }
+
     // hlida kolize hracu
     if (distance < radius + enemyRadius && radius > enemyRadius) {
       // odebere enemaka
@@ -200,6 +245,23 @@ let draw = () => {
       enemyRadius = Math.floor(Math.random() * 200);
       let enemyColor = Math.random() * 360;
       let directionIdentifier = Math.floor(Math.random() * 8 + 1);
+      let overlaap = false;
+      for (let j = 0; j < enemies.length; j++) {
+        let secEnemy = enemies[j];
+        let ex = enemyX - secEnemy[0];
+        let ey = enemyY - secEnemy[1];
+        let min = secEnemy[2] + 200;
+        if (ex * ex + ey * ey < min * min) {
+          overlaap = true;
+          break;
+        }
+      }
+
+      if (overlaap) {
+        i--;
+        continue;
+      }
+
       enemies.push([
         enemyX,
         enemyY,
@@ -231,6 +293,23 @@ let draw = () => {
       enemyRadius = Math.floor(Math.random() * 200);
       let enemyColor = Math.random() * 360;
       let directionIdentifier = Math.floor(Math.random() * 8 + 1);
+      let overlaap = false;
+      for (let j = 0; j < enemies.length; j++) {
+        let secEnemy = enemies[j];
+        let ex = enemyX - secEnemy[0];
+        let ey = enemyY - secEnemy[1];
+        let min = secEnemy[2] + 200;
+        if (ex * ex + ey * ey < min * min) {
+          overlaap = true;
+          break;
+        }
+      }
+
+      if (overlaap) {
+        i--;
+        continue;
+      }
+
       enemies.push([
         enemyX,
         enemyY,
